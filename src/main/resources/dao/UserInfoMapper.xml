@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.fantai.dao.UserInfoMapper">
+
+    <!-- findById -->
+    <select id="findById" parameterType="string" resultType="com.fantai.entity.UserInfo">
+        select u.sy_ui_id,u.sy_ui_name,u.sy_ui_phone,u.sy_ui_email,u.sy_ui_role,u.sy_ui_pwd,u.sy_si_id,s.sy_si_name
+        from sy_userinfo u left join sy_schoolinfo s on u.sy_si_id = s.sy_si_id where sy_ui_id = #{sy_ui_id}
+    </select>
+
+    <!-- findByThing -->
+    <select id="findByThing" resultType="com.fantai.entity.UserInfo">
+        select u.sy_ui_id,u.sy_ui_name,u.sy_ui_phone,u.sy_ui_email,u.sy_ui_role,s.sy_si_name from sy_userinfo u left join sy_schoolinfo s
+        on u.sy_si_id = s.sy_si_id
+    </select>
+
+</mapper>

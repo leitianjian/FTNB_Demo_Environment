@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="FTNB_Demo_Environment:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>FTNB_Demo_Environment</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="ftnb-demo-environment.war">
+      <element id="artifact" artifact-name="FTNB_Demo_Environment:war exploded" />
+    </root>
+  </artifact>
+</component>

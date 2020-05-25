@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.fantai.dao.SensorInfoMapper">
+
+    <!-- findByUser -->
+    <select id="findByUser" parameterType="string" resultType="com.fantai.entity.SensorInfo">
+        select se.se_si_id,se.sy_di_code,se.se_si_tem,se.se_si_hum,se.se_si_pressure,se.se_si_imei,se.se_si_sim,se.se_si_online,
+        se.se_si_electric,se.se_si_time,se.se_si_up_time,d.sy_ui_id,u.sy_ui_name,u.sy_si_id,s.sy_si_name from se_sensorinfo se left join
+        sy_deviceinfo d on se.sy_di_code = d.sy_di_code left join sy_userinfo u on d.sy_ui_id = u.sy_ui_id left join
+        sy_schoolinfo s on u.sy_si_id = s.sy_si_id where d.sy_ui_id = #{sy_ui_id}
+    </select>
+
+    <!-- findByCode -->
+    <select id="findByCode" parameterType="string" resultType="com.fantai.entity.SensorInfo">
+        select se.se_si_id,se.sy_di_code,se.se_si_tem,se.se_si_hum,se.se_si_pressure,se.se_si_imei,se.se_si_sim,se.se_si_online,
+        se.se_si_electric,se.se_si_time,se.se_si_up_time,d.sy_di_reg_time,d.sy_di_con_time,d.sy_di_con_type,d.sy_di_ip,d.sy_di_port,d.sy_di_gps_num,
+        d.sy_di_heartbeat_num,d.sy_ui_id,u.sy_ui_name,u.sy_si_id,s.sy_si_name from se_sensorinfo se left join
+        sy_deviceinfo d on se.sy_di_code = d.sy_di_code left join sy_userinfo u on d.sy_ui_id = u.sy_ui_id left join
+        sy_schoolinfo s on u.sy_si_id = s.sy_si_id where se.sy_di_code = #{sy_di_code}
+    </select>
+
+</mapper>

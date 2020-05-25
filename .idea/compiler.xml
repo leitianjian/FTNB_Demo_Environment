@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="FTNB_Demo_Environment" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="FTNB_Demo_Environment" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="FTNB_Demo_Environment" options="-verbose -bootclasspath $PROJECT_DIR$/../../../java_sdk/jdk-1.8/jre/lib/rt.jar;$PROJECT_DIR$/../../../java_sdk/jdk-1.8/jre/lib/jce.jar" />
+    </option>
+  </component>
+</project>
