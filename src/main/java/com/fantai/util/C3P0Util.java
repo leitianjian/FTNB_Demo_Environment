@@ -18,7 +18,7 @@ public class C3P0Util {
     public static void initDataSource() {
         cpds = new ComboPooledDataSource();
         cpds.setDataSourceName("acms01");
-        cpds.setJdbcUrl("jdbc:mysql://www.ftiotcloud.cn:3306/fantainb?autoReconnect=true&amp;autoReconnectForPools=true");//连接url
+        cpds.setJdbcUrl("jdbc:mysql://localhost:3306/fantainb?autoReconnect=true&amp;autoReconnectForPools=true");//连接url
         try {
             cpds.setDriverClass("com.mysql.jdbc.Driver");
         } catch (PropertyVetoException e) {
@@ -26,7 +26,7 @@ public class C3P0Util {
             e.printStackTrace();
         } //数据库驱动
         cpds.setUser("root");//用户名
-        cpds.setPassword("test123");//密码
+        cpds.setPassword("986753421");//密码
         cpds.setMaxPoolSize(100);//连接池中保留的最大连接数
         cpds.setMinPoolSize(10);//连接池中保留的最小连接数
         cpds.setAcquireIncrement(10);//一次性创建新连接的数目

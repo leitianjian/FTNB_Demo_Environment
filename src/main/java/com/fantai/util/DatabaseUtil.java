@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat;
 public class DatabaseUtil {
 
     private static String dbDriver = "com.mysql.jdbc.Driver";
-    private static String dbUrl = "jdbc:mysql://www.ftiotcloud.cn:3306/fantainb?autoReconnect=true&amp;autoReconnectForPools=true";// 数据库地址
+    private static String dbUrl = "jdbc:mysql://localhost:3306/fantainb?autoReconnect=true&amp;autoReconnectForPools=true";// 数据库地址
     private static String dbUser = "root";// 用户名
-    private static String dbPass = "test123"; // 用户密码
+    private static String dbPass = "986753421"; // 用户密码
     static Connection connection = null;
 
     public static void closeConnection() {
