@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class TcpThreadServer {
-    private static final int PORT = 6666;
+    private static final int PORT = 28889;
 
     public void start() throws Exception{
         ServerSocket ss = new ServerSocket(PORT);

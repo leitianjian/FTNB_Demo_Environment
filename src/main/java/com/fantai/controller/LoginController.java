@@ -1,7 +1,9 @@
 package com.fantai.controller;
 
 import com.fantai.dao.UserInfoMapper;
+import com.fantai.entity.LocationInfo;
 import com.fantai.entity.UserInfo;
+import com.fantai.util.DatabaseUtil;
 import com.fantai.util.TCPThreadServerSocket;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by xiaoy_000 on 2017/9/7.
@@ -28,27 +33,36 @@ public class LoginController {
 
     public final static int SUCCESS = 0;
 
+    public static HashSet<LocationInfo> lastRetrieve = new HashSet<>();
+
     @Resource
     private UserInfoMapper userMapper;
 
     @RequestMapping("/toLogin1.do")
     public String toLogin1(){
-        try {
-            ServerSocket ss = new ServerSocket(28888);
-            System.out.println("服务器已经启动。。。");
-            while (true) {
-                Socket s = ss.accept();
-                Thread t = new Thread(new TCPThreadServerSocket(s));
-                t.start();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         return null;
     }
 
     @RequestMapping("/toLogin.do")
     public String toLogin(HttpSession session){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ServerSocket ss = new ServerSocket(28888);
+                    System.out.println("服务器已经启动。。。");
+                    while (true) {
+                        Socket s = ss.accept();
+                        Thread t = new Thread(new TCPThreadServerSocket(s));
+                        t.start();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
         session.invalidate();
         return "main/login";
     }
@@ -76,6 +90,27 @@ public class LoginController {
     public String toIndexU(Model model,HttpServletRequest request){
         model.addAttribute("module", "index");
         return "main/index";
+    }
+
+    @RequestMapping("/toUpdate.do")
+    @ResponseBody
+    public List<LocationInfo> toUpdate(HttpServletRequest request) {
+        HashSet<LocationInfo> retrievedData = DatabaseUtil.retrieveLocation();
+        if (retrievedData != null) {
+            System.out.println(retrievedData.size());
+        } else {
+            System.out.println("null");
+        }
+        if (retrievedData != null) {
+            HashSet<LocationInfo> temp = new HashSet<>(retrievedData);
+            retrievedData.removeAll(lastRetrieve);
+            System.out.println("filtered: " + retrievedData.size());
+            lastRetrieve = temp;
+            return new LinkedList<>(retrievedData);
+        } else {
+            return new LinkedList<>();
+        }
+//        model.addAttribute("module", "update");
     }
 
 }

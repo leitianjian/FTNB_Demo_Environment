@@ -21,7 +21,7 @@ public class TCPThreadServerSocket implements Runnable {
             //获取服务端输入的消息
             in = socket.getInputStream();
             //服务端返回的消息
-            out = socket.getOutputStream();
+//            out = socket.getOutputStream();
             //用一个字节数字来存放消息，提高效率
             while(true) {
                 int len = in.available();
@@ -29,8 +29,11 @@ public class TCPThreadServerSocket implements Runnable {
                     recData = new byte[len];
                     in.read(recData);
                     String data = new String(recData);
+                    System.out.println(data);
+                    DatabaseUtil.updateLocation(data);
+                    System.out.println("After update");
                     //返回给客户端的消息
-                    dataMsg.RecieveDataMsg(recData, recData.length, 0, socket, out);
+//                    dataMsg.RecieveDataMsg(recData, recData.length, 0, socket, out);
                 }
             }
         } catch (Exception e) {

@@ -9,7 +9,7 @@
 <head>
     <script type="text/javascript">
         function show(){
-            window.location="login/toLogin1.do";
+            window.location="login/toLogin.do";
         }
     </script>
 </head>
