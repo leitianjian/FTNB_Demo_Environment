@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.fantai.dao.PredictionInfoMapper">
+
+
+    <!-- getByTime -->
+    <select id="getByTime" parameterType="int" resultType="com.fantai.entity.PredictionInfo">
+        select pi_region, pi_time_slot, pi_count from predictioninfo where  pi_time_stamp = #{time}
+    </select>
+
+    <!-- add -->
+    <insert id="add" parameterType="com.fantai.entity.PredictionInfo" >
+        <!--replace into gps_info (usr_id, lng, lat) values(#{usr_id}, #{lng}, #{lat}); -->
+        insert into predictioninfo (pi_region, pi_time_slot, pi_count) values (#{pi_region}, #{pi_time_slot}, #{pi_count}) ON DUPLICATE KEY UPDATE pi_count=#{pi_count}
+    </insert>
+
+</mapper>

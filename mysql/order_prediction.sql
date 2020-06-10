@@ -25,8 +25,8 @@ CREATE TABLE `userinfo` (
 -- ----------------------------
 DROP TABLE IF EXISTS `predictioninfo`;
 CREATE TABLE `predictioninfo` (
-  `pi_id` int(11)  NOT NULL AUTO_INCREMENT,
-  `pi_predict_content` varchar(4095) NOT NULL ,
-  `pi_time_stamp` timestamp NOT NULL,
-  PRIMARY KEY (`pi_id`)
+  `pi_region` int(11)  NOT NULL,
+  `pi_time_slot` int(11) NOT NULL ,
+  `pi_count` double(11,7) NOT NULL,
+  PRIMARY KEY (`pi_region`, `pi_time_slot`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

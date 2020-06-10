@@ -2,6 +2,7 @@ package com.fantai.controller;
 
 import com.fantai.dao.UserInfoMapper;
 import com.fantai.entity.LocationInfo;
+import com.fantai.entity.PredictionInfo;
 import com.fantai.entity.UserInfo;
 import com.fantai.util.DatabaseUtil;
 import com.fantai.util.TCPThreadServerSocket;
@@ -90,22 +91,9 @@ public class LoginController {
 
     @RequestMapping("/toUpdate.do")
     @ResponseBody
-    public List<LocationInfo> toUpdate(HttpServletRequest request) {
-        HashSet<LocationInfo> retrievedData = DatabaseUtil.retrievePrediction();
-        if (retrievedData != null) {
-            System.out.println(retrievedData.size());
-        } else {
-            System.out.println("null");
-        }
-        if (retrievedData != null) {
-            HashSet<LocationInfo> temp = new HashSet<>(retrievedData);
-            retrievedData.removeAll(lastRetrieve);
-            System.out.println("filtered: " + retrievedData.size());
-            lastRetrieve = temp;
-            return new LinkedList<>(retrievedData);
-        } else {
-            return new LinkedList<>();
-        }
+    public List<PredictionInfo> toUpdate(HttpServletRequest request) {
+        List<PredictionInfo> retrievedData = DatabaseUtil.retrievePrediction();
+        return retrievedData;
 //        model.addAttribute("module", "update");
     }
 

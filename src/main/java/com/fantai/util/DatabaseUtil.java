@@ -1,6 +1,8 @@
 package com.fantai.util;
 
+import com.fantai.dao.PredictionInfoMapper;
 import com.fantai.entity.LocationInfo;
+import com.fantai.entity.PredictionInfo;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.*;
@@ -16,7 +18,7 @@ public class DatabaseUtil {
     private static String dbUser = "root";// 用户名
     private static String dbPass = "123123"; // 用户密码
     static Connection connection = null;
-
+    static PredictionInfoMapper predictionInfoMapper;
     public static void closeConnection() {
         if (connection != null) {
             try {
@@ -39,46 +41,20 @@ public class DatabaseUtil {
     }
 
     public static void updatePrediction(String message) throws SQLException {
-        if (connection == null || connection.isClosed()){
-            connection = getConnection();
-        }
         System.out.println("insert values");
         String[] res = message.split(",");
-        int id = Integer.parseInt(res[0]);
-        long time = Long.parseLong(res[1]);
-        double latitude = Double.parseDouble(res[2]);
-        double longitude = Double.parseDouble(res[3]);
-        String sql = "insert into dev_location values (?, ?, ?, ?)";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, id);
-        stmt.setTimestamp(2, new Timestamp(time));
-        stmt.setDouble(3, latitude);
-        stmt.setDouble(4, longitude);
-        stmt.executeUpdate();
-//        INSERT INTO `sy_userinfo` VALUES ('admin','管理员','admin',NULL,NULL,1,1)
+        int region = Integer.parseInt(res[0]);
+        int time_slot = Integer.parseInt(res[1]);
+        double count = Integer.parseInt(res[2]);
+        PredictionInfo predictionInfo = new PredictionInfo();
+        predictionInfo.setPi_region(region);
+        predictionInfo.setPi_time_slot(time_slot);
+        predictionInfo.setPi_count(count);
+        predictionInfoMapper.add(predictionInfo);
     }
 
-    public static HashSet<LocationInfo> retrievePrediction() {
-        try {
-            if (connection == null || connection.isClosed()) {
-                connection = getConnection();
-            }
-            HashSet<LocationInfo> result = new HashSet<>();
-            String sql = "select l.* from dev_location l order by l.time desc limit 10";
-            PreparedStatement pst = connection.prepareStatement(sql);
-            ResultSet resultSet = pst.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                long time = resultSet.getTimestamp(2).getTime();
-                double latitude = resultSet.getDouble(3);
-                double longitude = resultSet.getDouble(4);
-                result.add(new LocationInfo(id, time, latitude, longitude));
-            }
-            return result;
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return null;
+    public static List<PredictionInfo> retrievePrediction() {
+        return predictionInfoMapper.getByTime(1);
     }
 
 
