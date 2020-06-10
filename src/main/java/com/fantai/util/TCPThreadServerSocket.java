@@ -13,7 +13,7 @@ public class TCPThreadServerSocket implements Runnable {
         this.socket = s;
     }
 
-    DataMsg dataMsg = new DataMsg();
+//    DataMsg dataMsg = new DataMsg();
 
     public void run() {
         byte[] recData = null;
@@ -30,7 +30,7 @@ public class TCPThreadServerSocket implements Runnable {
                     in.read(recData);
                     String data = new String(recData);
                     System.out.println(data);
-                    DatabaseUtil.updateLocation(data);
+                    DatabaseUtil.updatePrediction(data);
                     System.out.println("After update");
                     //返回给客户端的消息
 //                    dataMsg.RecieveDataMsg(recData, recData.length, 0, socket, out);
@@ -38,14 +38,13 @@ public class TCPThreadServerSocket implements Runnable {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
             try {
                 in.close();
                 socket.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-        } finally {
-
         }
     }
 

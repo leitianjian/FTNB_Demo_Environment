@@ -73,16 +73,12 @@ public class LoginController {
         UserInfo user = userMapper.findById(sy_ui_id);
         if(user == null){
             return ID_ERROR;
-        }else if(!user.getSy_ui_pwd().equals(sy_ui_pwd)){
+        }else if(!user.getUi_pwd().equals(sy_ui_pwd)){
             return PWD_ERROR;
         }else{
-            if(user.getSy_ui_role() == 2){
-                session.setAttribute("user", user);
-                session.setAttribute("name", user.getSy_ui_name());
-                return SUCCESS;
-            }else{
-                return ROOT_ERROR;
-            }
+            session.setAttribute("user", user);
+            session.setAttribute("name", user.getUi_name());
+            return SUCCESS;
         }
     }
 
@@ -95,7 +91,7 @@ public class LoginController {
     @RequestMapping("/toUpdate.do")
     @ResponseBody
     public List<LocationInfo> toUpdate(HttpServletRequest request) {
-        HashSet<LocationInfo> retrievedData = DatabaseUtil.retrieveLocation();
+        HashSet<LocationInfo> retrievedData = DatabaseUtil.retrievePrediction();
         if (retrievedData != null) {
             System.out.println(retrievedData.size());
         } else {
