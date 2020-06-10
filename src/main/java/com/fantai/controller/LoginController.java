@@ -92,7 +92,7 @@ public class LoginController {
     @RequestMapping("/toUpdate.do")
     @ResponseBody
     public List<PredictionInfo> toUpdate(HttpServletRequest request) {
-        List<PredictionInfo> retrievedData = DatabaseUtil.retrievePrediction();
+        List<PredictionInfo> retrievedData = DatabaseUtil.retrievePrediction(2);
         return retrievedData;
 //        model.addAttribute("module", "update");
     }

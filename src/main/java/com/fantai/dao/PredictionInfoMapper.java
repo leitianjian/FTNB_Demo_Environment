@@ -8,5 +8,5 @@ import java.util.List;
 @MyBatisRepository
 public interface PredictionInfoMapper {
   void add(PredictionInfo predictionInfo);
-  List<PredictionInfo> getByTime(int time);
+  List<PredictionInfo> getByTime(Integer time);
 }

@@ -7,13 +7,13 @@
 
     <!-- getByTime -->
     <select id="getByTime" parameterType="int" resultType="com.fantai.entity.PredictionInfo">
-        select pi_region, pi_time_slot, pi_count from predictioninfo where  pi_time_stamp = #{time}
+        select pi_region, pi_time_slot, pi_count from predictioninfo where  pi_time_slot = #{time}
     </select>
 
     <!-- add -->
     <insert id="add" parameterType="com.fantai.entity.PredictionInfo" >
         <!--replace into gps_info (usr_id, lng, lat) values(#{usr_id}, #{lng}, #{lat}); -->
-        insert into predictioninfo (pi_region, pi_time_slot, pi_count) values (#{pi_region}, #{pi_time_slot}, #{pi_count}) ON DUPLICATE KEY UPDATE pi_count=#{pi_count}
+        insert into predictioninfo (pi_region, pi_time_slot, pi_count) values (#{pi_region}, #{pi_time_slot}, #{pi_count}) on duplicate key update pi_count=#{pi_count}
     </insert>
 
 </mapper>
