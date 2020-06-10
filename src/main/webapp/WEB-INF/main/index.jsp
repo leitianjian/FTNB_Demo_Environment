@@ -17,7 +17,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../images/favicon.png">
 
-    <title>NBIOT - 主页</title>
+    <title>出租车需求预测</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../js/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
@@ -61,7 +61,7 @@
             white-space: nowrap;
             font-size: 12px;
             font-family: "";
-            background-color: #25A5F7;
+            background-color: #86fa00;
             border-radius: 3px;
         }
 
@@ -318,6 +318,12 @@
         return [res_lat, res_long]
         // return 5 * 1e4 * demand_normalized
     }
+
+    function getRequiredData(item) {
+        var result = {"lnglat": getLocationByID(item.pi_region), "count": item.pi_count};
+        return result;
+    }
+
     updateMap()
     function updateMap() {
         <%--$.ajax({--%>
@@ -327,28 +333,33 @@
         <%--    // dataType:"json",--%>
         <%--    dataType: "csv",--%>
         //     success: function(data){
+        var gridLayer = new Loca.GridLayer({
+            map: map,
+            visible: true,
+            zIndex: 777,
+            //eventSupport: true
+        });
         $.get("${pageContext.request.contextPath}/login/toUpdate.do", function(data) {
-                var gridLayer;
-                var height = 200000;
+                // var gridLayer;
+                var height = 20000;
                 var viewMode = '3D';
                 console.log(data);
                 initPointAdcode();
                 function initPointAdcode() {
-                    gridLayer = new Loca.GridLayer({
-                        map: map,
-                        visible: true,
-                        zIndex: 777,
-                        //eventSupport: true
-                    });
 
-                    gridLayer.setData(data, {
-                        type: 'json',
-                        lnglat: function (obj) {
-                            var result = getLocationByID(obj.value.pi_region)
-                            return [result];
-                        },
-                        value: 'pi_count'
+
+                    gridLayer.setData(data.map(getRequiredData), {
+                        lnglat: "lnglat",
+                        value: "count",
                     });
+                    // gridLayer.setData(data, {
+                    //     type: 'json',
+                    //     lnglat: function (obj) {
+                    //         var result = getLocationByID(obj.value.pi_region)
+                    //         return [result];
+                    //     },
+                    //     value: 'pi_count'
+                    // });
 
                     gridLayer.setOptions({
                         unit: 'meter',
@@ -381,7 +392,7 @@
                             }
                         }
                     }).render();
-                    gridLayer.setFitView();
+                    // gridLayer.setFitView();
 
                     // 事件 legendupdate: 图例数据更新完成回调此函数
                     <%--gridLayer.on('legendupdate', function (ev) {--%>

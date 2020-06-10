@@ -110,7 +110,7 @@ public class LoginController {
         int len = retrievedData.size();
         for (int i=0;i<len; ++i) {
             PredictionInfo info = retrievedData.get(i);
-            info.setPi_count(info.getPi_count()*3000);
+            info.setPi_count(Math.log(info.getPi_count()*3000 + 2));
         }
         return retrievedData;
     }

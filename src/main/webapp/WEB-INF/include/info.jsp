@@ -10,7 +10,7 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="fa fa-gear"></span>
             </button>
-            <a class="navbar-brand" href="#"><span> NB-IOT 环境监测</span></a>
+            <a class="navbar-brand" href="#"><span>出租车需求预测</span></a>
         </div>
         <div class="navbar-collapse collapse">
 
