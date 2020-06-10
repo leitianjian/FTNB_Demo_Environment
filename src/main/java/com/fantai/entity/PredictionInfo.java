@@ -11,6 +11,11 @@ public class PredictionInfo {
     this.pi_time_slot = pi_time_slot;
     this.pi_count = pi_count;
   }
+  public PredictionInfo(Integer pi_region, Integer pi_time_slot, Double pi_count) {
+    this.pi_region = pi_region;
+    this.pi_time_slot = pi_time_slot;
+    this.pi_count = pi_count;
+  }
 
   public Integer getPi_region() {
     return pi_region;

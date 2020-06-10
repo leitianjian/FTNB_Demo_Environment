@@ -33,6 +33,7 @@ public class LoginController {
     public final static int ROOT_ERROR = 3;
 
     public final static int SUCCESS = 0;
+    public static int time_slot = 0;
 
     public static HashSet<LocationInfo> lastRetrieve = new HashSet<>();
 
@@ -83,6 +84,15 @@ public class LoginController {
         }
     }
 
+
+    @RequestMapping("/SetTime.do")
+    @ResponseBody
+    public void setTime(String time, HttpSession session,HttpServletRequest request){
+        System.out.println("DEBUG:" + time);
+        time_slot = Integer.parseInt(time);
+    }
+
+
     @RequestMapping("/toIndex.do")
     public String toIndexU(Model model,HttpServletRequest request){
         model.addAttribute("module", "index");
@@ -92,9 +102,17 @@ public class LoginController {
     @RequestMapping("/toUpdate.do")
     @ResponseBody
     public List<PredictionInfo> toUpdate(HttpServletRequest request) {
-        List<PredictionInfo> retrievedData = DatabaseUtil.retrievePrediction(2);
+        System.out.println("DEBUG:" + "ToUpdate");
+        List<PredictionInfo> retrievedData = DatabaseUtil.retrievePrediction(time_slot);
+        if (retrievedData == null) {
+            return null;
+        }
+        int len = retrievedData.size();
+        for (int i=0;i<len; ++i) {
+            PredictionInfo info = retrievedData.get(i);
+            info.setPi_count(info.getPi_count()*3000);
+        }
         return retrievedData;
-//        model.addAttribute("module", "update");
     }
 
 }

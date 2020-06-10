@@ -87,7 +87,7 @@ public class DatabaseUtil {
             ResultSet resultSet = pst.executeQuery();
             while (resultSet.next()) {
                 int region = resultSet.getInt(1);
-                int count = resultSet.getInt(3);
+                double count = resultSet.getDouble(3);
                 predictionInfos.add(new PredictionInfo(region, time_slot, count));
             }
             return predictionInfos;

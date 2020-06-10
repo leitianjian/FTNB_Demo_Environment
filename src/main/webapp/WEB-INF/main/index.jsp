@@ -331,7 +331,7 @@
                 var gridLayer;
                 var height = 200000;
                 var viewMode = '3D';
-
+                console.log(data);
                 initPointAdcode();
                 function initPointAdcode() {
                     gridLayer = new Loca.GridLayer({
@@ -344,10 +344,10 @@
                     gridLayer.setData(data, {
                         type: 'json',
                         lnglat: function (obj) {
-                            var result = getLocationByID(obj.value.id)
+                            var result = getLocationByID(obj.value.pi_region)
                             return [result];
                         },
-                        value: 'count'
+                        value: 'pi_count'
                     });
 
                     gridLayer.setOptions({
@@ -477,7 +477,7 @@
     <%--        }--%>
     <%--    })--%>
     <%--}--%>
-    <%--window.setInterval(updateMap, 3000);--%>
+    window.setInterval(updateMap, 3000);
 
     <%--// 实例化点标记--%>
     <%--function addMarker(id, latitude, longitude) {--%>
